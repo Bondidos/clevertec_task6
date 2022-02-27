@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ClevertecTask4</string>
+    <string name="address_text">"Адрес: %1$s %2$s, %3$s"</string>
+    <string name="place">"Местонахождение: %1$s"</string>
+    <string name="type">"Тип установки: %1$s"</string>
+    <string name="work_time">"Время работы: %1$s"</string>
+    <string name="network_error">"Network problem"</string>
+</resources>
