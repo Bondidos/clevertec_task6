@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.bondidos.clevertectask4.R
-import com.bondidos.clevertectask4.domain.model.AtmItem
+import com.bondidos.clevertectask4.domain.ui_model.Position
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 
@@ -17,7 +17,7 @@ class MarkerInfoWindowAdapter(
     @SuppressLint("InflateParams")
     override fun getInfoContents(marker: Marker): View? {
 
-        val atmItem = marker.tag as? AtmItem ?: return null
+        val atmItem = marker.tag as? Position ?: return null
 
         val view = LayoutInflater.from(context).inflate(
             R.layout.marker_info_contents, null

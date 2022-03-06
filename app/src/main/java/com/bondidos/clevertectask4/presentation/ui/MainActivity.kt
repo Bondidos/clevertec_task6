@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bondidos.clevertectask4.R
-import com.bondidos.clevertectask4.domain.model.AtmItem
 import com.bondidos.clevertectask4.domain.resources_state.Resource
+import com.bondidos.clevertectask4.domain.ui_model.Position
 import com.bondidos.clevertectask4.presentation.ui.marker_adapter.MarkerInfoWindowAdapter
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     @Inject
     lateinit var viewModel: ActivityViewModel
-    private var atmList: List<AtmItem>? = null
+    private var position: List<Position>? = null
     private val mainScope = CoroutineScope(Job() + Dispatchers.Main)
 
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             viewModel.atmList.collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        atmList = resource.data
+                        position = resource.data
                         createTags()
                     }
                     is Resource.Error ->
@@ -61,9 +60,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             googleMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(applicationContext))
             googleMap.setOnMapLoadedCallback {
                 val bounds = LatLngBounds.builder()
-                atmList?.forEach { atmItem ->
+                position?.forEach { item ->
                     bounds.include(
-                        LatLng(atmItem.gps_x, atmItem.gps_y)
+                        item.latLng
                     )
                 }
                 googleMap.moveCamera(
@@ -75,15 +74,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun addMarkers(googleMap: GoogleMap) {
-        atmList?.forEach { item ->
+        position?.forEach { item ->
             val marker = googleMap.addMarker(
                 MarkerOptions()
                     .title(item.install_place)
                     .position(
-                        LatLng(
-                            item.gps_x,
-                            item.gps_y
-                        )
+                        item.latLng
                     )
             )
             marker?.tag = item
