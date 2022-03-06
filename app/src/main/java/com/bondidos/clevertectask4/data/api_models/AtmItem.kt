@@ -1,4 +1,4 @@
-package com.bondidos.clevertectask4.domain.model
+package com.bondidos.clevertectask4.data.api_models
 
 data class AtmItem(
     val ATM_error: String,
