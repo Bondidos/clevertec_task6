@@ -4,7 +4,7 @@ import com.bondidos.clevertectask4.data.api_models.AtmItem
 import com.bondidos.clevertectask4.domain.ui_model.Position
 import com.google.android.gms.maps.model.LatLng
 
-class Maper {
+class Mapper {
 
     fun fromAtmItemList(atm: List<AtmItem>) = atm.map{
             atmItem -> atmItemToPosition(atmItem)
