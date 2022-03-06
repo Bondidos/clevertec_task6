@@ -17,26 +17,32 @@ class MarkerInfoWindowAdapter(
     @SuppressLint("InflateParams")
     override fun getInfoContents(marker: Marker): View? {
 
-        val atmItem = marker.tag as? Position ?: return null
-
-        val view = LayoutInflater.from(context).inflate(
-            R.layout.marker_info_contents, null
-        )
-        view.findViewById<TextView>(R.id.text_view_title).text =
-            context.getString(R.string.place, atmItem.install_place)
-        view.findViewById<TextView>(R.id.text_view_address).text =
-            context.getString(
-                R.string.address_text,
-                atmItem.address_type,
-                atmItem.address,
-                atmItem.house
-            )
-        view.findViewById<TextView>(R.id.text_view_type).text =
-            context.getString(R.string.type, atmItem.ATM_type)
-        view.findViewById<TextView>(R.id.text_work_time).text =
-            context.getString(R.string.work_time, atmItem.work_time)
-
-        return view
+        when(val item = marker.tag){
+            is Position -> {
+                val view = LayoutInflater.from(context).inflate(
+                    R.layout.marker_info_contents, null
+                )
+                view.findViewById<TextView>(R.id.text_view_title).text =
+                    context.getString(R.string.place, item.install_place)
+                view.findViewById<TextView>(R.id.text_view_address).text =
+                    context.getString(
+                        R.string.address_text,
+                        item.address_type,
+                        item.address,
+                        item.house
+                    )
+                item.ATM_type?.let {
+                    view.findViewById<TextView>(R.id.text_view_type).text =
+                        context.getString(R.string.type, item.ATM_type)
+                }
+                view.findViewById<TextView>(R.id.text_work_time).text =
+                    context.getString(R.string.work_time, item.work_time)
+                view.findViewById<TextView>(R.id.text_point_type).text =
+                    context.getString(item.point_type, item.work_time)
+                return view
+            }
+            else -> return null
+        }
     }
 
 

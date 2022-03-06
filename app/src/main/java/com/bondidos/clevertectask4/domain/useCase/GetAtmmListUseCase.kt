@@ -10,9 +10,18 @@ import javax.inject.Inject
 class GetAtmListUseCase @Inject constructor(private val apiService: BelBankService) {
     fun execute(): Observable<List<Position>> {
         val mapper = Mapper()
-        return apiService.getAtmList(CITY_HOMEL)
+        val offices = apiService.getOffices(CITY_HOMEL)
+            .map {
+                mapper.fromOffice(it)
+            }
+        val infoBoxes = apiService.getInfoBoxList(CITY_HOMEL)
+            .map {
+                mapper.fromInfoboxList(it)
+            }
+        val atm = apiService.getAtmList(CITY_HOMEL)
             .map {
                 mapper.fromAtmItemList(it)
             }
+        return Observable.merge(listOf(atm,infoBoxes,offices))
     }
 }
