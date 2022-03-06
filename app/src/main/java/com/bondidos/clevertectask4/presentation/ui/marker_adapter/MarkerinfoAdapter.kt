@@ -17,7 +17,7 @@ class MarkerInfoWindowAdapter(
     @SuppressLint("InflateParams")
     override fun getInfoContents(marker: Marker): View? {
 
-        when(val item = marker.tag){
+        when (val item = marker.tag) {
             is Position -> {
                 val view = LayoutInflater.from(context).inflate(
                     R.layout.marker_info_contents, null
@@ -44,7 +44,6 @@ class MarkerInfoWindowAdapter(
             else -> return null
         }
     }
-
 
     override fun getInfoWindow(marker: Marker): View? = null
 

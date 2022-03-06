@@ -13,6 +13,5 @@ class ActivityViewModel @Inject constructor(getAtmListUseCase: GetAtmListUseCase
         val list: Observable<List<Position>> = getAtmListUseCase.execute()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-
 }
 

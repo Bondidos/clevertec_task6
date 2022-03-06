@@ -11,5 +11,6 @@ data class Position(
     val house: String,
     val ATM_type: String?,
     val work_time: String,
-    val latLng: LatLng
+    val latLng: LatLng,
+    val distanceToAnchor: Double
 )

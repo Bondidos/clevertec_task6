@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     @Inject
     lateinit var viewModel: ActivityViewModel
-    private var position: List<Position>? = null
+    private var position: List<Position> = mutableListOf()
     private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +32,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun launch() {
 
         disposable = viewModel.list.subscribe(
-            {result -> position = result
+            { result ->
+                position = result
                 createTags()
             },
             {
-                    Toast.makeText(
-                        applicationContext,
-                        applicationContext.getString(R.string.network_error),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                Toast.makeText(
+                    applicationContext,
+                    applicationContext.getString(R.string.network_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
     }
@@ -53,13 +54,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             googleMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(applicationContext))
             googleMap.setOnMapLoadedCallback {
                 val bounds = LatLngBounds.builder()
-                position?.forEach { item ->
+                position.forEach { item ->
                     bounds.include(
                         item.latLng
                     )
                 }
                 googleMap.moveCamera(
-                    CameraUpdateFactory.newLatLngBounds(bounds.build(), 20)
+                    CameraUpdateFactory.newLatLngBounds(bounds.build(), 150)
                 )
             }
             addMarkers(googleMap)
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun addMarkers(googleMap: GoogleMap) {
-        position?.forEach { item ->
+        position.forEach { item ->
             val marker = googleMap.addMarker(
                 MarkerOptions()
                     .title(item.install_place)

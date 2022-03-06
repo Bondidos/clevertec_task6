@@ -6,14 +6,19 @@ import com.bondidos.clevertectask4.data.api_models.InfoBoxItem
 import com.bondidos.clevertectask4.data.api_models.Office
 import com.bondidos.clevertectask4.domain.ui_model.Position
 import com.google.android.gms.maps.model.LatLng
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class Mapper {
 
-    fun fromOffice(office: List<Office>) = office.map{ it.toPosition() }
+    private val anchor = LatLng(52.425163, 31.015039)
+
+    fun fromOffice(office: List<Office>) = office.map { it.toPosition() }
 
     fun fromAtmItemList(atm: List<AtmItem>) = atm.map { it.toPosition() }
 
-    fun fromInfoboxList(infoBox: List<InfoBoxItem>) = infoBox.map {it.toPosition()}
+    fun fromInfoboxList(infoBox: List<InfoBoxItem>) = infoBox.map { it.toPosition() }
 
     private fun Office.toPosition(): Position {
         return Position(
@@ -28,7 +33,8 @@ class Mapper {
             latLng = LatLng(
                 this.GPS_X,
                 this.GPS_Y
-            )
+            ),
+            distanceToAnchor = distanceToAnchor(this.GPS_X, this.GPS_Y)
         )
     }
 
@@ -45,7 +51,8 @@ class Mapper {
             latLng = LatLng(
                 this.gps_x,
                 this.gps_y
-            )
+            ),
+            distanceToAnchor = distanceToAnchor(this.gps_x, this.gps_y)
         )
     }
 
@@ -62,7 +69,13 @@ class Mapper {
             latLng = LatLng(
                 this.gps_x,
                 this.gps_y
-            )
+            ),
+            distanceToAnchor = distanceToAnchor(this.gps_x, this.gps_y)
         )
     }
+
+    private fun distanceToAnchor(lat: Double, lng: Double) = sqrt(
+        (abs(lat) - abs(anchor.latitude)).pow(2.0)
+                + (abs(lng) - abs(anchor.longitude)).pow(2.0)
+    )
 }
