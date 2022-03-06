@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
@@ -23,8 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     @Inject
     lateinit var viewModel: ActivityViewModel
     private var position: List<Position>? = null
-    private val mainScope = CoroutineScope(Job() + Dispatchers.Main)
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onDestroy() {
-        mainScope.cancel()
+        disposable?.dispose()
         super.onDestroy()
     }
 }
