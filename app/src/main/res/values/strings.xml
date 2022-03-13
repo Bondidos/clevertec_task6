@@ -5,4 +5,8 @@
     <string name="type">"Тип установки: %1$s"</string>
     <string name="work_time">"Время работы: %1$s"</string>
     <string name="network_error">"Network problem"</string>
+    <string name="atm_type">"ATM"</string>
+    <string name="info_box_type">"Инфокиоск"</string>
+    <string name="bank_office">"Отделение банка"</string>
+
 </resources>

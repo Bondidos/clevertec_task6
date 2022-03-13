@@ -1,13 +1,26 @@
 package com.bondidos.clevertectask4.data.atmApi
 
 import com.bondidos.clevertectask4.data.api_models.AtmItem
+import com.bondidos.clevertectask4.data.api_models.InfoBoxItem
+import com.bondidos.clevertectask4.data.api_models.Office
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface BelBankService {
 
     @GET("/api/atm")
-    suspend fun getAtmList(
+    fun getAtmList(
         @Query("city") city: String
-    ): List<AtmItem>
+    ): Observable<List<AtmItem>>
+
+    @GET("/api/infobox")
+    fun getInfoBoxList(
+        @Query("city") city: String
+    ): Observable<List<InfoBoxItem>>
+
+    @GET("/api/filials_info")
+    fun getOffices(
+        @Query("city") city: String
+    ): Observable<List<Office>>
 }
