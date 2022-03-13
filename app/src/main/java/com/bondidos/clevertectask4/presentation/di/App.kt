@@ -1,7 +1,20 @@
 package com.bondidos.clevertectask4.presentation.di
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import android.content.Context
 
-@HiltAndroidApp
-class App : Application()
+class App : Application(){
+
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = DaggerAppComponent.create()
+    }
+}
+
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is App -> appComponent
+        else -> this.applicationContext.appComponent
+    }

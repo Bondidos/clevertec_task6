@@ -1,4 +1,4 @@
-package com.bondidos.clevertectask4.domain.ui_model
+package com.bondidos.clevertectask4.domain.ui_models
 
 import com.google.android.gms.maps.model.LatLng
 

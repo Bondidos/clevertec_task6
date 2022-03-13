@@ -1,8 +1,8 @@
 package com.bondidos.clevertectask4.data.atmApi
 
-import com.bondidos.clevertectask4.data.api_models.AtmItem
-import com.bondidos.clevertectask4.data.api_models.InfoBoxItem
-import com.bondidos.clevertectask4.data.api_models.Office
+import com.bondidos.clevertectask4.data.data_models.AtmItem
+import com.bondidos.clevertectask4.data.data_models.InfoBoxItem
+import com.bondidos.clevertectask4.data.data_models.Office
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
