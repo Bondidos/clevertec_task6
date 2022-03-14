@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import com.bondidos.clevertectask4.R
 import com.bondidos.clevertectask4.domain.ui_models.Position
 import com.bondidos.clevertectask4.presentation.di.appComponent
-import com.bondidos.clevertectask4.presentation.ui.map_fragment.viewmodel.ActivityViewModelFactory
+import com.bondidos.clevertectask4.presentation.ui.map_fragment.viewmodel.MapViewModelFactory
 import com.bondidos.clevertectask4.presentation.ui.map_fragment.viewmodel.MapViewModel
 import com.bondidos.clevertectask4.presentation.ui.marker_adapter.MarkerInfoWindowAdapter
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class MapsFragment : Fragment() {
 
     @Inject
-    lateinit var factory: ActivityViewModelFactory
+    lateinit var factory: MapViewModelFactory
     private val viewModel: MapViewModel by viewModels { factory }
     private var position: List<Position> = mutableListOf()
     private var disposable: Disposable? = null

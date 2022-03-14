@@ -1,21 +1,20 @@
 package com.bondidos.clevertectask4.domain.useCase
 
-import com.bondidos.clevertectask4.data.repository.RepositoryImpl
-import com.bondidos.clevertectask4.domain.constants.Constants.CITY_HOMEL
+import com.bondidos.clevertectask4.domain.Repository
 import com.bondidos.clevertectask4.domain.utils.Mapper
 import com.bondidos.clevertectask4.domain.ui_models.Position
 import io.reactivex.Observable
 import io.reactivex.functions.Function3
 import javax.inject.Inject
 
-class GetAtmListUseCase @Inject constructor(private val repositoryImpl: RepositoryImpl) {
-    fun execute(): Observable<List<Position>> {
+class FetchDataUseCase @Inject constructor(private val repository: Repository) {
+    fun execute(city: String): Observable<List<Position>> {
         val mapper = Mapper()
-        val offices = repositoryImpl.getOffices(CITY_HOMEL)
+        val offices = repository.getOffices(city)
             .map { mapper.officeToPosition(it) }
-        val infoBoxes = repositoryImpl.getInfoBoxList(CITY_HOMEL)
+        val infoBoxes = repository.getInfoBoxList(city)
             .map { mapper.infoBoxToPosition(it) }
-        val atm = repositoryImpl.getAtmList(CITY_HOMEL)
+        val atm = repository.getAtmList(city)
             .map { mapper.atmToPosition(it) }
 
         return Observable.zip( atm, infoBoxes, offices,
