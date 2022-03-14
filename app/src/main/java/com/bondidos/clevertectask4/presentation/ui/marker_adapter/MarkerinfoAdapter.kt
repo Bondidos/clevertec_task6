@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.bondidos.clevertectask4.R
-import com.bondidos.clevertectask4.domain.ui_model.Position
+import com.bondidos.clevertectask4.domain.ui_models.Position
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 

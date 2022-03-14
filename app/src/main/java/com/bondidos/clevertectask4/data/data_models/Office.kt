@@ -1,4 +1,4 @@
-package com.bondidos.clevertectask4.data.api_models
+package com.bondidos.clevertectask4.data.data_models
 
 data class Office(
 

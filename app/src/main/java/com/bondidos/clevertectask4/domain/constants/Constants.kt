@@ -1,4 +1,4 @@
-package com.bondidos.clevertectask4.domain
+package com.bondidos.clevertectask4.domain.constants
 
 
 object Constants {
